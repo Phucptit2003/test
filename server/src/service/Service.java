@@ -8,17 +8,19 @@ import com.corundumstudio.socketio.listener.ConnectListener;
 import com.corundumstudio.socketio.listener.DataListener;
 import com.corundumstudio.socketio.listener.DisconnectListener;
 import app.MessageType;
-import com.raven.model.Model_Client;
-import com.raven.model.Model_File;
-import com.raven.model.Model_Login;
-import com.raven.model.Model_Message;
-import com.raven.model.Model_Package_Sender;
-import com.raven.model.Model_Receive_Image;
-import com.raven.model.Model_Receive_Message;
-import com.raven.model.Model_Register;
-import com.raven.model.Model_Reques_File;
-import com.raven.model.Model_Send_Message;
-import com.raven.model.Model_User_Account;
+import model.Model_Client;
+import model.Model_File;
+import model.Model_Login;
+import model.Model_Message;
+import model.Model_Package_Sender;
+import model.Model_Receive_Image;
+import model.Model_Receive_Message;
+import model.Model_Register;
+import model.Model_Reques_File;
+import model.Model_Send_Message;
+import model.Model_User_Account;
+import service.ServiceFIle;
+import service.ServiceUser;
 import java.io.IOException;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -75,6 +77,7 @@ public class Service {
             @Override
             public void onData(SocketIOClient sioc, Model_Login t, AckRequest ar) throws Exception {
                 Model_User_Account login = serviceUser.login(t);
+                System.out.println(login.getUserID());
                 if (login != null) {
                     ar.sendAckData(true, login);
                     addClient(sioc, login);
